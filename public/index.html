@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title> Pixel Resizer 3.0 </title>
+    <meta name="title" content="Let our services make your house the best. Your dream is ours">
+    <meta name="description" content="A Tool used to convert CSS Values with a multiplier..">
+    <meta name="keywords" content="CSS Pixel Resizer, CSS Sprite">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+
+</head>
+<body>
+
+    <header>
+        <h1>Pixel Resizer</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <form>
+                <div class="input__box">
+                    <h2>Inputs</h2>
+                    <div class="form__field">
+                        <textarea id="inputText" class="input__text" placeholder=" "></textarea>
+                        <label for="inputText">CSS Rule(s)</label>
+                    </div>
+                    <div class="form__field">
+                        <p>
+                            <strong>Note:</strong>
+                            Enter one of the below 3 calculation factors
+                        </p>
+                    </div>
+                    <div class="form__field">
+                        <input type="number" id="multiplicationFactor" placeholder=" ">
+                        <label for="multiplicationFactor">Multiplication Factor</label>
+                    </div>
+                    <div class="form__field form__subparent">
+                        <div class="form__field form__subfield">
+                            <input type="number" id="requiredHeight" placeholder=" ">
+                            <label for="requiredHeight">Required Height</label>
+                        </div>
+                        <div class="form__field form__subfield">
+                            <input type="number" id="requiredWidth" placeholder=" ">
+                            <label for="requiredWidth">Required Width</label>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <button type="submit">
+                            Get Result
+                        </button>
+                    </div>
+                </div>
+                <div class="output__box">
+                    <h2>Output</h2>
+                    <div class="form__field">
+                        <textarea id="outputResult" class="output__text" placeholder=" "></textarea>
+                        <label for="outputResult">Output Result</label>
+                    </div>
+                    <div class="form__field">
+                        <p>
+                            <strong>Note:</strong>
+                            The output text is copied to the clipboard automatically
+                        </p>
+                    </div>
+                    <div class="form__field">
+                        <button type="reset">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                View source code on
+                <a
+                    href="https://github.com/jaguarsiva/Pixel-Resizer-3.0"
+                    title="Github Repository"
+                    target="_blank"
+                >
+                    Github
+                    <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0)">
+                          <path d="M16 22v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22m0-3c-5 1.5-5-2.5-7-3l7 3z" stroke="#FB3640" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0">
+                            <path fill="#fff" d="M0 0h24v24H0z"/>
+                          </clipPath>
+                        </defs>
+                    </svg>
+                </a>
+            </p>
+            <small>
+                Made with 💖 by
+                <a
+                    href="https://sivaa.tech/"
+                    title="Siva's Portfolio"
+                    target="_blank"
+                >
+                    Siva Chandran
+                </a>
+            </small>
+        </div>
+    </footer>
+
+    <aside id="alert">
+
+    </aside>
+
+</body>
+</html>

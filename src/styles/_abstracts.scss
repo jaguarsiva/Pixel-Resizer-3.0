@@ -1,0 +1,20 @@
+
+@use "sass:math";
+
+// Colors
+$white: #FDF6F0;
+$red: #FB3640;
+$blue: #002233;
+$light-blue: rgba( $blue, 0.2 );
+$black: rgba( #111, 0.75 );
+$shadow-black: rgba( #111, 0.5 );
+$gray: #E5E5E5;
+
+// Misc
+$smooth-radius: 5px;
+$shadow: 3px 3px 12px 0 $shadow-black;
+
+// Functions
+@function toREM($pixels, $context: 16) {
+	@return ( math.div($pixels, $context) ) * 1rem;
+}
