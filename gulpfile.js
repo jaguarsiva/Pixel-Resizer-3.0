@@ -1,4 +1,3 @@
-
 // All Imports
 const { src, dest, series, watch } = require('gulp');
 const rename = require('gulp-rename');
@@ -6,15 +5,9 @@ const sass = require('gulp-sass')( require('sass') );
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
 const purgecss = require('gulp-purgecss');
-const babel = require('gulp-babel');
-const terser = require('gulp-terser');
 
 // File paths
 const paths = {
-    // Folders
-    sourceFolder: 'src',
-    destFolder: 'public',
-
     // HTML
     htmlFileName: 'public/index.html',
 
@@ -25,20 +18,8 @@ const paths = {
     cssOutputFileName: 'style.css',
 
     // JavaScript
-    jsEntryFile: 'src/scripts/index.js',
-    jsFiles: 'src/scripts/**/*.js',
-    jsOutputFilePath: 'public/js',
-    jsOutputFileName: 'app.js'
+    jsFiles: 'src/scripts/**/*.ts',
 };
-
-// JavaScript Task
-function jsTask() {
-    return src( paths.jsEntryFile, { sourcemaps: true })
-		// .pipe( babel({ presets: ['@babel/preset-env'] }))
-		.pipe( terser() )
-        .pipe( rename( paths.jsOutputFileName ) )
-		.pipe( dest(paths.jsOutputFilePath, { sourcemaps: '.' }));
-}
 
 // CSS Task
 function csstask() {
@@ -61,15 +42,17 @@ function csstask() {
 
 // Watch Task
 function watchTask() {
-    watch(
-        [ paths.htmlFileName, paths.scssFiles, paths.jsFiles ],
-        series( jsTask, csstask )
-    );
+    watch( [ paths.htmlFileName, paths.scssFiles ], csstask );
 }
 
 // Gulp tasks
 exports.default = series(
-    jsTask,
     csstask,
     watchTask
 );
+
+exports.watch = series(
+    csstask,
+    watchTask
+);
+exports.build = csstask;

@@ -1,4 +1,5 @@
 
+@use "sass:math";
 @use './abstracts' as *;
 @forward './base';
 
@@ -89,25 +90,46 @@ h2 {
 textarea, input {
     resize: none;
     outline: 0;
-    appearance: none;
     width: 100%;
     height: 50px;
     padding: 15px 20px;
     background-color: $light-blue;
     border: 2px solid $white;
     font-size: toREM(18);
-    font-weight: 600;
+    line-height: 1.5;
     color: $white;
     box-shadow: $shadow;
     border-radius: $smooth-radius;
+
+    &:focus, &:active, &:not(:placeholder-shown) {
+        border-color: $red;
+
+        & + label {
+            left: 5px;
+            top: -20px;
+        }
+    }
+}
+
+input {
+    font-weight: 600;
+}
+
+textarea::-webkit-scrollbar { width: 5px; }
+
+textarea::-webkit-scrollbar-track { background-color: transparent; }
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: rgba( $gray, 0.5 );
+    border-radius: 12px;
 }
 
 .input__text {
-    height: 100px;
+    height: 165px;
 }
 
 .output__text {
-    height: 250px;
+    height: 325px;
 }
 
 .form__subparent {
@@ -116,11 +138,12 @@ textarea, input {
 }
 
 .form__subfield {
-    width: calc(50% - 10px);
     position: relative;
+    width: calc(50% - 10px);
+    margin-top: 10px;
 }
 
-button {
+.btn {
     height: 50px;
     width: 100%;
     background-color: $red;
@@ -128,7 +151,7 @@ button {
     font-weight: 700;
     color: $white;
     letter-spacing: 2px;
-    box-shadow: $shadow-black;
+    box-shadow: $shadow;
     border-radius: $smooth-radius;
 
     &:hover, &:focus, &:active {
@@ -148,11 +171,8 @@ label {
     transition: top 0.2s ease-in-out, left 0.2s ease-in-out;
 }
 
-textarea, input {
-    &:focus + label, &:active + label, &:not(:placeholder-shown) + label {
-        left: 5px;
-        top: -20px;
-    }
+.mt-10 {
+    margin-top: 10px;
 }
 
 // Footer
@@ -181,4 +201,155 @@ footer {
         top: 6px;
         left: 6px;
     }
+}
+
+// Alert
+
+$start-width: 50px;
+$end-width: 300px;
+
+.alert {
+    position: fixed;
+    top: 30px;
+    width: $end-width;
+    height: 60px;
+    left: calc(100vw - 330px);
+    background-color: $black;
+    box-shadow: $shadow;
+    border-radius: $smooth-radius;
+    padding: 15px 25px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+
+    &.is-shown {
+        display: flex;
+        animation:
+                alert-open 0.8s ease-in-out both,
+                glow 0.8s linear 0.8s infinite alternate;
+    }
+
+    &.is-removing {
+        display: flex;
+        animation: alert-close 0.8s ease-in-out both;
+    }
+}
+
+@keyframes alert-open {
+    0% {
+        top: -75px;
+        width: $start-width;
+    }
+
+    60% {
+        top: 30px;
+        width: $start-width;
+    }
+
+    100% {
+        top: 30px;
+        width: $end-width;
+    }
+}
+
+@keyframes alert-close {
+    0% {
+        top: 30px;
+        width: $end-width;
+    }
+
+    40% {
+        top: 30px;
+        width: $start-width;
+    }
+
+    100% {
+        top: -75px;
+        width: $start-width;
+    }
+}
+
+.alert__text {
+    font-size: toREM(15);
+    font-weight: 600;
+    line-height: 1.8;
+    color: $gray;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+
+    .is-shown & {
+        animation: text-open 0.8s ease-in-out both;
+    }
+
+    .is-removing & {
+        animation: text-close 0.8s ease-in-out both;
+    }
+}
+
+@keyframes text-open {
+    0% {
+        width: 0;
+    }
+
+    60% {
+        width: 0;
+    }
+
+    100% {
+        width: fit-content;
+    }
+}
+
+@keyframes text-close {
+    0% {
+        width: fit-content;
+    }
+
+    40% {
+        width: fit-content;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px -2px rgba($black, 0.25);
+    }
+
+    to {
+        box-shadow: 0 0 10px 2px rgba($black, 0.5);
+    }
+}
+
+.alert__close {
+    height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    .is-shown & {
+        animation: text-open 0.8s ease-in-out both;
+    }
+
+    .is-removing & {
+        animation: text-close 0.8s ease-in-out both;
+    }
+}
+
+.slide-down { position: relative; animation: slide 750ms ease-out; }
+
+@keyframes slide
+{
+    from { transform: translateY(-100px); opacity: 0; }
+
+    to { transform: translateY(0); opacity: 1; }
 }

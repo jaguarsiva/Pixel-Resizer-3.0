@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.js"],"names":["a","console","log"],"mappings":"OACSA,MAAS,WAElBC,QAAQC,IAAI,YACZD,QAAQC,IAAIF","file":"app.js"}
+{"version":3,"file":"app.js","mappings":"mBACAA,QAAQC,IAAI,uB","sources":["webpack://pixel-resizer-3.0/./src/scripts/index.ts"],"sourcesContent":["\r\nconsole.log('Vanakam JavaScript');\r\n"],"names":["console","log"],"sourceRoot":""}

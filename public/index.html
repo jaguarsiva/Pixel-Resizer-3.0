@@ -31,31 +31,31 @@
                 <div class="input__box">
                     <h2>Inputs</h2>
                     <div class="form__field">
-                        <textarea id="inputText" class="input__text" placeholder=" "></textarea>
+                        <textarea id="inputText" class="input__text" placeholder=" " spellcheck="false"></textarea>
                         <label for="inputText">CSS Rule(s)</label>
                     </div>
-                    <div class="form__field">
+                    <div class="form__field mt-10">
                         <p>
                             <strong>Note:</strong>
                             Enter one of the below 3 calculation factors
                         </p>
                     </div>
                     <div class="form__field">
-                        <input type="number" id="multiplicationFactor" placeholder=" ">
-                        <label for="multiplicationFactor">Multiplication Factor</label>
+                        <input type="number" id="multiplier" placeholder=" " step=".0001">
+                        <label for="multiplier">Multiplier</label>
                     </div>
                     <div class="form__field form__subparent">
                         <div class="form__field form__subfield">
-                            <input type="number" id="requiredHeight" placeholder=" ">
-                            <label for="requiredHeight">Required Height</label>
+                            <input type="number" id="height" placeholder=" " step=".0001">
+                            <label for="height">Required Height</label>
                         </div>
                         <div class="form__field form__subfield">
-                            <input type="number" id="requiredWidth" placeholder=" ">
-                            <label for="requiredWidth">Required Width</label>
+                            <input type="number" id="width" placeholder=" " step=".0001">
+                            <label for="width">Required Width</label>
                         </div>
                     </div>
                     <div class="form__field">
-                        <button type="submit">
+                        <button type="submit" class="btn submit__btn">
                             Get Result
                         </button>
                     </div>
@@ -63,17 +63,17 @@
                 <div class="output__box">
                     <h2>Output</h2>
                     <div class="form__field">
-                        <textarea id="outputResult" class="output__text" placeholder=" "></textarea>
-                        <label for="outputResult">Output Result</label>
+                        <textarea id="outputText" class="output__text" placeholder=" " spellcheck="false"></textarea>
+                        <label for="outputText">Output Result</label>
                     </div>
-                    <div class="form__field">
+                    <div class="form__field mt-10">
                         <p>
                             <strong>Note:</strong>
-                            The output text is copied to the clipboard automatically
+                            Output is copied to clipboard automatically.
                         </p>
                     </div>
                     <div class="form__field">
-                        <button type="reset">
+                        <button type="reset" class="btn reset__btn">
                             Reset
                         </button>
                     </div>
@@ -117,8 +117,15 @@
         </div>
     </footer>
 
-    <aside id="alert">
-
+    <aside id="alert" class="alert">
+        <p id="alertText" class="alert__text">
+            Output copied to clipboard.
+        </p>
+        <button type="button" class="alert__close" id="alertClose">
+            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.681 19.681a1.1 1.1 0 01-1.545 0l-5.517-5.517-.773-.772a1.091 1.091 0 111.546-1.546l.772.773 5.517 5.517a1.1 1.1 0 010 1.545zM19.68.319a1.1 1.1 0 00-1.544 0L9.998 8.455 1.863.319a1.096 1.096 0 00-1.545 0 1.1 1.1 0 000 1.545L8.454 10 .318 18.136a1.093 1.093 0 001.545 1.545L19.681 1.864a1.096 1.096 0 000-1.545z" fill="#FB3640"/>
+            </svg>
+        </button>
     </aside>
 
 </body>
