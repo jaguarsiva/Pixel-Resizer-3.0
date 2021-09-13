@@ -20,6 +20,7 @@ type timeoutType = ReturnType<typeof setTimeout>;
 type timeoutOrNull = timeoutType | null;
 
 export {
+    factorType,
     factorOrNull,
     ruleType,
     declarationType,

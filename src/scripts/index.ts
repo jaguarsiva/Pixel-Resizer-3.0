@@ -1,6 +1,7 @@
 
 import './helpers';
 import {
+    factorType,
     factorOrNull,
     ruleType,
     declarationType,
@@ -11,6 +12,7 @@ import {
 const form = document.querySelector('form')!;
 const inputText = document.querySelector('#inputText') as HTMLTextAreaElement;
 const outputText = document.querySelector('#outputText') as HTMLTextAreaElement;
+const copyNote = document.querySelector('#copyNote') as HTMLDivElement;
 const inputElements = document.querySelectorAll<HTMLInputElement>('input[type="number"]');
 
 const alertBox = document.querySelector('#alert') as HTMLDivElement;
@@ -44,36 +46,30 @@ function handleSubmit( event: Event ) {
 
     event.preventDefault();
 
-    if( !inputText.value ) {
-        openAlert( 'CSS Rule(s) can\'t be empty!.' )
-        return false;
-    }
+    if( !inputText.value ) return openAlert( 'CSS Rule(s) can\'t be empty!.' );
 
     // Check whether one input element has a value
     const factor = getFactor();
-    if( !factor ) {
-        openAlert( 'Need one factor!.' )
-        return false;
-    }
+    if( !factor ) return openAlert( 'Need one factor!.' );
 
     const rules = getRules( inputText.value );
     const declarations = getAllDeclarations( rules );
-
-    let multiplier: number;
-    if( factor.type === 'multiplier' ) multiplier = factor.value;
-    else {
-        const actualValue = getValueByProperty( declarations, factor.type );
-        multiplier = parseFloat( ( factor.value / parseFloat( actualValue ) ).toFixed(4) );
-    }
-
+    const multiplier = getMultiplier( factor, declarations );
     const result = getOutput( inputText.value, multiplier );
     setOutput( result );
 }
 
 function getFactor(): factorOrNull  {
 
-    let element = Array.from( inputElements ).find( element => element.value );
+    const element = Array.from( inputElements ).find( element => element.value );
     return element ? { type: element.id, value: element.valueAsNumber } : null;
+}
+
+function getMultiplier( { type, value }: factorType, declarations: declarationType[] ) {
+
+    if( type === 'multiplier' ) return value;
+    const actualValue = getValueByProperty( declarations, type );
+    return parseFloat( ( value / parseFloat( actualValue ) ).toFixed(4) );
 }
 
 function getRules( rulesString: string ) {
@@ -107,6 +103,7 @@ function getRules( rulesString: string ) {
 }
 
 function getDeclarationsByRule( declarationsString: string ) {
+
     const declarationsArray: declarationType[] = declarationsString
         .split(';')
         .slice(0, -1)
@@ -122,9 +119,11 @@ function getDeclarationsByRule( declarationsString: string ) {
 
 function getAllDeclarations( rules: ruleType[] ) {
 
-    let allDeclarations: declarationType[] = [];
-    rules.forEach( ({ declarations }) => { allDeclarations.push( ...declarations ) });
-    return allDeclarations;
+    return rules
+        .reduce(
+            ( result: declarationType[], { declarations } ) => result.concat( ...declarations ),
+            []
+        );
 }
 
 function getValueByProperty( declarations: declarationType[], property: string ) {
@@ -176,12 +175,12 @@ function getOutput( text: string, multiplier: number ) {
     return text;
 }
 
-function setOutput( result: string ) {
+async function setOutput( result: string ) {
     outputText.value = result;
-    openAlert('Output copied to clipboard!.');
-    outputText.select();
-    document.execCommand( 'copy', true );
-    outputText.blur();
+    if (navigator.clipboard) {
+        await navigator.clipboard.writeText( result );
+        openAlert( 'Output copied to clipboard!.' );
+    }
     outputText.classList.add("slide-down");
     setTimeout( () => {
         outputText.classList.remove("slide-down");
@@ -194,6 +193,7 @@ function openAlert( message: string ) {
     alertBox.classList.add('is-shown');
     alertText.innerText = message;
     alertTimer = setTimeout( closeAlert , 3000);
+    return false;
 }
 
 function closeAlert() {
@@ -212,4 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
     inputElements.forEach( resetInputValue );
     form.addEventListener( 'submit', handleSubmit );
     alertClose.addEventListener('click', closeAlert );
+
+    navigator.clipboard || copyNote.classList.add('is-hidden');
 });
